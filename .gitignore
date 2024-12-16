@@ -18,9 +18,6 @@ Makefile
 tests/local/**/output/
 *.log
 
-# Ignore data directory outputs
-data/local_tests/**/output/
-
 # Ignore IDE specific files
 .idea/
 .vscode/
