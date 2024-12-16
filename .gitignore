@@ -1,0 +1,49 @@
+# Ignore build directories
+build/
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.so
+*.dll
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Ignore test outputs and logs
+tests/local/**/output/
+*.log
+
+# Ignore data directory outputs
+data/local_tests/**/output/
+
+# Ignore IDE specific files
+.idea/
+.vscode/
+*.iml
+
+# Ignore backup files
+*.swp
+*.bak
+*.tmp
+*.old
+*.orig
+
+# Ignore user-specific files
+*.DS_Store
+*.directory
+Thumbs.db
+
+# Ignore core dumps
+core
+*.core
+
+# Ignore system-specific files
+*.log
+*.pyc
+*.pyo
+__pycache__/
