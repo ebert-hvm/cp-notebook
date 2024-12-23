@@ -6,5 +6,6 @@
 using namespace std;
 
 string trim(const string& str);
+string normalizeLineEndings(const string& str);
 
 #endif  // MAIN_H

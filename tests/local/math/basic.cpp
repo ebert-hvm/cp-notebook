@@ -1,6 +1,6 @@
 #include "cp-notebook/math/basic.h"
 
-string test(string& s) {
+string testSieve(string& s) {
     sieve();
     istringstream iss(s);
     ostringstream oss;
@@ -11,10 +11,19 @@ string test(string& s) {
     return oss.str();
 }
 
-int main(int argc, char* argv[]) {
-    string inputDir = string(TEST_DATA_DIR) + "/local_tests/basic/input";
-    string outputDir = string(TEST_DATA_DIR) + "/local_tests/basic/output";
+string testFexp(string& s) {
+    istringstream iss(s);
+    ostringstream oss;
+    long long a, b, r, m;
+    iss >> a >> b >> m;
+    r = fexp(a, b, m);
+    oss << r;
+    return oss.str();
+}
 
+void test(string& path, string (*testCase)(string&)) {
+    string inputDir = path + "/input";
+    string outputDir = path + "/output";
     for (const auto& entry : filesystem::directory_iterator(inputDir)) {
         if (entry.is_regular_file()) {
             string inputFile = entry.path().string();
@@ -29,7 +38,7 @@ int main(int argc, char* argv[]) {
             buffer << inputStream.rdbuf();
 
             string inputContent = buffer.str();
-            string testResult = test(inputContent);
+            string testResult = testCase(inputContent);
             ifstream expectedStream(outputFile);
 
             if (!expectedStream) {
@@ -41,13 +50,19 @@ int main(int argc, char* argv[]) {
                                   istreambuf_iterator<char>());
             testResult = trim(testResult);
             expectedOutput = trim(expectedOutput);
-            cerr << testResult << endl;
-            cerr << expectedOutput << endl;
             assert(testResult == expectedOutput && "Test failed!");
 
             cout << "Test passed for: " << inputFile << endl;
         }
     }
-    cout << "All test cases passed.\n";
+}
+
+int main(int argc, char* argv[]) {
+    string testsDir = string(TEST_DATA_DIR) + "/local_tests/basic";
+    string sieveDir = testsDir + "/sieve";
+    string fexpDir = testsDir + "/fexp";
+    test(sieveDir, testSieve);
+    test(fexpDir, testFexp);
+    cout << "All test cases passed\n";
     return 0;
 }
